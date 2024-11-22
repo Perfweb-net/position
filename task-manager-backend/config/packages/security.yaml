@@ -1,0 +1,25 @@
+security:
+    password_hashers:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        # Désactive complètement la sécurité pour toutes les routes
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # Firewall pour l'API avec aucune sécurité
+        api:
+            pattern: ^/api
+            security: false # Aucune sécurité pour toutes les routes API
+
+    access_control:
+        # Aucune restriction d'accès, tout le monde peut accéder
+        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
